@@ -9,8 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cosmjs/stargate": "^0.33.0",
+    "@keplr-wallet/provider": "^0.12.181",
+    "ethers": "^6.13.5",
+    "next": "15.1.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.1.6"
-  }
+    "react-dom": "^19.0.0"
+  },
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
