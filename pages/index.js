@@ -43,9 +43,9 @@ const Game = () => {
     ctx.fillStyle = '#654321';
     ctx.fillRect(0, groundY + 50, canvas.width, 50);
 
-    // Draw a simple cat emoji
+    // Draw a simple cat emoji (position adjusted to sit on top of the obstacles)
     ctx.font = '40px Arial';
-    ctx.fillText('🐱', 50, catYRef.current);
+    ctx.fillText('🐱', 50, catYRef.current - 10); // Adjusted to sit on the ground level properly
 
     // Update obstacles: move them leftwards
     obstaclesRef.current.forEach((obs) => {
@@ -60,7 +60,7 @@ const Game = () => {
     obstaclesRef.current.forEach((obs) => {
       ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
       // Simple collision detection
-      if (50 < obs.x + obs.width && 50 + 40 > obs.x && catYRef.current < obs.y + obs.height && catYRef.current + 40 > obs.y) {
+      if (50 < obs.x + obs.width && 50 + 40 > obs.x && catYRef.current - 10 < obs.y + obs.height && catYRef.current + 40 > obs.y) {
         setGameOver(true); // End the game if collision occurs
         cancelAnimationFrame(requestRef.current);
       }
