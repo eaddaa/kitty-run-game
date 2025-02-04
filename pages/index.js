@@ -128,11 +128,6 @@ const Game = () => {
       }
     });
 
-    // Increase score over time (if game is not over)
-    if (!gameOver) {
-      setScore(prev => prev + deltaTime * 0.01);
-    }
-
     // Generate new obstacles randomly
     if (!gameOver && Math.random() < 0.02) { // Adjust probability as needed
       obstaclesRef.current.push({
@@ -144,10 +139,7 @@ const Game = () => {
       });
     }
 
-    // Draw score
-    ctx.fillStyle = 'black';
-    ctx.font = '20px Arial';
-    ctx.fillText(`Score: ${Math.floor(score)}`, 10, 30);
+    // Remove the score text from top-left corner
 
     if (!gameOver) {
       requestRef.current = requestAnimationFrame(gameLoop);
@@ -184,11 +176,11 @@ const Game = () => {
       <div style={{ marginTop: '20px' }}>
         {gameOver ? (
           <div>
-            <h3>Game Over! Your Score: {Math.floor(score)}</h3>
+            <h3>Game Over!</h3>
             <button onClick={startGame}>Restart Game</button>
           </div>
         ) : (
-          <h3>Press the button to jump!</h3>
+          <h3>Press the button to jump! 🐱</h3> {/* Kedi emoji ekledim */}
         )}
       </div>
     </div>
