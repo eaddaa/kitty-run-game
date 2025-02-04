@@ -180,7 +180,9 @@ const Game = () => {
             <button onClick={startGame}>Restart Game</button>
           </div>
         ) : (
-          <h3>Press the button to jump! 🐱</h3> {/* Kedi emoji ekledim */}
+          <div>
+            <h3>Press the button to jump! 🐱</h3> {/* Kedi emoji ekledim */}
+          </div>
         )}
       </div>
     </div>
