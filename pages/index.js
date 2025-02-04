@@ -91,6 +91,7 @@ const Game = () => {
       ctx.fillStyle = 'black';
       ctx.font = '40px Arial';
       ctx.fillText("Game Over", canvas.width / 2 - 100, canvas.height / 2);
+      ctx.fillText(`Final Score: ${score}`, canvas.width / 2 - 120, canvas.height / 2 + 50);
     }
   };
 
