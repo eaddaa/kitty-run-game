@@ -20,8 +20,8 @@ const Game = () => {
   };
 
   const drawCat = (ctx, x, y) => {
-    // Draw the cat emoji 🐱
-    ctx.font = '40px Arial';
+    // Draw the cat emoji 🐱 with larger size
+    ctx.font = '80px Arial'; // Increase font size to make the emoji larger
     ctx.fillText('🐱', x, y); // Use the cat emoji as the character
   };
 
@@ -86,12 +86,6 @@ const Game = () => {
     if (!gameOver) {
       setScore((prevScore) => prevScore + 1); // Increment score
       requestRef.current = requestAnimationFrame(gameLoop);
-    } else {
-      // Game over message
-      ctx.fillStyle = 'black';
-      ctx.font = '40px Arial';
-      ctx.fillText("Game Over", canvas.width / 2 - 100, canvas.height / 2);
-      ctx.fillText(`Final Score: ${score}`, canvas.width / 2 - 120, canvas.height / 2 + 50);
     }
   };
 
@@ -137,6 +131,7 @@ const Game = () => {
         {gameOver ? (
           <div>
             <h3>Game Over!</h3>
+            <h4>Final Score: {score}</h4> {/* Show final score */}
             <button onClick={startGame}>Restart Game</button>
           </div>
         ) : (
