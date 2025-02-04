@@ -82,9 +82,9 @@ const Game = () => {
       });
     }
 
-    // Remove the score text from top-left corner
-
+    // Increase score
     if (!gameOver) {
+      setScore((prevScore) => prevScore + 1); // Increment score
       requestRef.current = requestAnimationFrame(gameLoop);
     } else {
       // Game over message
@@ -139,7 +139,10 @@ const Game = () => {
             <button onClick={startGame}>Restart Game</button>
           </div>
         ) : (
-          <h3>Press Space to jump! 🐱</h3>
+          <>
+            <h3>Press Space to jump! 🐱</h3>
+            <h3>Score: {score}</h3> {/* Show current score */}
+          </>
         )}
       </div>
     </div>
