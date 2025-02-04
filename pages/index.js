@@ -19,69 +19,6 @@ const Game = () => {
     }
   };
 
-  const drawCat = (ctx, x, y) => {
-    // Cat body (as a rounded rectangle)
-    ctx.fillStyle = '#FFA500'; // Orange color for the cat
-    ctx.beginPath();
-    ctx.ellipse(x + 25, y + 25, 25, 25, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Cat ears (triangle shapes)
-    ctx.fillStyle = '#FFA500';
-    ctx.beginPath();
-    ctx.moveTo(x + 5, y + 5); // Left ear
-    ctx.lineTo(x - 10, y - 10);
-    ctx.lineTo(x + 15, y - 15);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.moveTo(x + 45, y + 5); // Right ear
-    ctx.lineTo(x + 60, y - 10);
-    ctx.lineTo(x + 35, y - 15);
-    ctx.closePath();
-    ctx.fill();
-
-    // Cat eyes (small circles)
-    ctx.fillStyle = 'white';
-    ctx.beginPath();
-    ctx.arc(x + 15, y + 20, 5, 0, Math.PI * 2); // Left eye
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(x + 35, y + 20, 5, 0, Math.PI * 2); // Right eye
-    ctx.fill();
-
-    // Cat pupils (smaller black circles)
-    ctx.fillStyle = 'black';
-    ctx.beginPath();
-    ctx.arc(x + 15, y + 20, 2, 0, Math.PI * 2); // Left pupil
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(x + 35, y + 20, 2, 0, Math.PI * 2); // Right pupil
-    ctx.fill();
-
-    // Cat nose (small triangle)
-    ctx.fillStyle = 'pink';
-    ctx.beginPath();
-    ctx.moveTo(x + 25, y + 30);
-    ctx.lineTo(x + 20, y + 35);
-    ctx.lineTo(x + 30, y + 35);
-    ctx.closePath();
-    ctx.fill();
-
-    // Cat mouth (small curved line)
-    ctx.beginPath();
-    ctx.moveTo(x + 25, y + 35);
-    ctx.quadraticCurveTo(x + 20, y + 40, x + 25, y + 40); // Left curve
-    ctx.moveTo(x + 25, y + 35);
-    ctx.quadraticCurveTo(x + 30, y + 40, x + 25, y + 40); // Right curve
-    ctx.strokeStyle = 'black';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-  };
-
   const gameLoop = (time) => {
     const canvas = canvasRef.current;
     if (!canvas || gameOver) return; // Stop if game is over
@@ -106,8 +43,9 @@ const Game = () => {
     ctx.fillStyle = '#654321';
     ctx.fillRect(0, groundY + 50, canvas.width, 50);
 
-    // Draw cat (as a cute kitty)
-    drawCat(ctx, 50, catYRef.current);
+    // Draw a simple cat emoji
+    ctx.font = '40px Arial';
+    ctx.fillText('🐱', 50, catYRef.current);
 
     // Update obstacles: move them leftwards
     obstaclesRef.current.forEach((obs) => {
@@ -122,7 +60,7 @@ const Game = () => {
     obstaclesRef.current.forEach((obs) => {
       ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
       // Simple collision detection
-      if (50 < obs.x + obs.width && 50 + 50 > obs.x && catYRef.current < obs.y + obs.height && catYRef.current + 50 > obs.y) {
+      if (50 < obs.x + obs.width && 50 + 40 > obs.x && catYRef.current < obs.y + obs.height && catYRef.current + 40 > obs.y) {
         setGameOver(true); // End the game if collision occurs
         cancelAnimationFrame(requestRef.current);
       }
@@ -139,7 +77,13 @@ const Game = () => {
       });
     }
 
+    // Update score
+    setScore(prevScore => prevScore + 1);
+
     // Remove the score text from top-left corner
+    ctx.fillStyle = 'black';
+    ctx.font = '30px Arial';
+    ctx.fillText(`Score: ${score}`, 20, 40);
 
     if (!gameOver) {
       requestRef.current = requestAnimationFrame(gameLoop);
@@ -157,7 +101,7 @@ const Game = () => {
       requestRef.current = requestAnimationFrame(gameLoop);
     }
     return () => cancelAnimationFrame(requestRef.current);
-  }, [gameOver]);
+  }, [gameOver, score]);
 
   const startGame = () => {
     setScore(0);
@@ -181,7 +125,7 @@ const Game = () => {
           </div>
         ) : (
           <div>
-            <h3>Press the button to jump! 🐱</h3> {/* Kedi emoji ekledim */}
+            <h3>Press the button to jump! 🐱</h3> {/* Kedi emojisi ekledim */}
           </div>
         )}
       </div>
